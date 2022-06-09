@@ -2,6 +2,7 @@ import { addTodo, deleteTodo, completeTodo } from "../store/action";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
+import style from "./TodoApp.module.css";
 
 const TodoApp = () => {
   const ref = useRef();
@@ -24,6 +25,10 @@ const TodoApp = () => {
     dispatch(deleteTodo(id));
   };
 
+  const completeIt = (id) => {
+    dispatch(completeTodo(id));
+  };
+
   return (
     <div>
       TodoApp
@@ -31,16 +36,10 @@ const TodoApp = () => {
         <input placeholder="type todo here..." ref={ref} />
         <button onClick={addNew}>ADD</button>
         {todos.map((todo, i) => (
-          <div key={todo.id}>
+          <div key={todo.id} className={todo.isCompleted ? style.dashed : null}>
             {todo.value}
             <button onClick={() => removeIt(todo.id)}>remove</button>
-            <button
-              onClick={() => {
-                console.log("marked completed");
-              }}
-            >
-              Mark complete
-            </button>
+            <button onClick={() => completeIt(todo.id)}>Mark complete</button>
           </div>
         ))}
       </div>

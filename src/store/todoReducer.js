@@ -30,7 +30,16 @@ export const todoReducer = (state = { todos: [] }, action) => {
                 todos: [...updatedTodos]
             }
         }
-        case COMPLETE_TODO: return state;
+        case COMPLETE_TODO: {
+            let id = action.id;
+            state.todos.forEach((x, i) => {
+                if (x.id === id) {
+                    state.todos[i].isCompleted = true;
+                    return { ...state };
+                }
+            })
+            return { ...state };
+        }
         default: return state;
     }
 }
