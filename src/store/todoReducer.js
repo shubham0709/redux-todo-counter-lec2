@@ -1,33 +1,51 @@
 import {
     ADD_TODO,
     COMPLETE_TODO,
-    DELETE_TODO
+    DELETE_TODO,
+    GET_TODOS_SUCCESS,
+    GET_TODOS_LOADING,
+    GET_TODOS_ERROR
 } from "./action.types.js"
 
-export const todoReducer = (state = { todos: [] }, action) => {
+const initialState = {
+    loading: false,
+    error: false,
+    todos: []
+}
+export const todoReducer = (state = initialState, action) => {
     let { type, payload } = action;
     switch (type) {
-        case ADD_TODO: return {
-            // state.todos.push({
-            //     ...payload,
-            //     id: Date.now(),
-            // })
-            // return { ...state }
-            // this commented code also works
-            ...state,
-            todos: [...state.todos,
-            {
-                ...payload,
-                id: Date.now(),
-            }]
+        case GET_TODOS_LOADING: {
+            return { ...state, loading: true, error: false }
         }
+        case GET_TODOS_SUCCESS: {
+            return { ...state, todos: payload, loading: false, error: false }
+        }
+        case GET_TODOS_ERROR: {
+            return { ...state, loading: false, error: true }
+        }
+        case ADD_TODO:
+            // console.log(state, action, "from CASE_TODO");
+            return {
+                // state.todos.push({
+                //     ...payload,
+                //     id: Date.now(),
+                // })
+                // return { ...state }
+                // this commented code also works
+                ...state,
+                todos: [...state.todos,
+                {
+                    ...payload
+                }]
+            }
         case DELETE_TODO: {
-            let id = action.id;
+            let { id } = action;
             const updatedTodos = state.todos.filter(x => x.id !== id)
-            console.log(updatedTodos);
+            // console.log(updatedTodos);
             return {
                 ...state,
-                todos: [...updatedTodos]
+                todos: updatedTodos
             }
         }
         case COMPLETE_TODO: {
