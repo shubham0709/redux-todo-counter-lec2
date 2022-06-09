@@ -21,7 +21,15 @@ export const todoReducer = (state = { todos: [] }, action) => {
                 id: Date.now(),
             }]
         }
-        case DELETE_TODO: return state;
+        case DELETE_TODO: {
+            let id = action.id;
+            const updatedTodos = state.todos.filter(x => x.id !== id)
+            console.log(updatedTodos);
+            return {
+                ...state,
+                todos: [...updatedTodos]
+            }
+        }
         case COMPLETE_TODO: return state;
         default: return state;
     }

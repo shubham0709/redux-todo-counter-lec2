@@ -17,6 +17,11 @@ const TodoApp = () => {
         isCompleted: false,
       })
     );
+    ref.current.value = null;
+  };
+
+  const removeIt = (id) => {
+    dispatch(deleteTodo(id));
   };
 
   return (
@@ -28,14 +33,14 @@ const TodoApp = () => {
         {todos.map((todo, i) => (
           <div key={todo.id}>
             {todo.value}
+            <button onClick={() => removeIt(todo.id)}>remove</button>
             <button
               onClick={() => {
-                console.log("removing");
+                console.log("marked completed");
               }}
             >
-              remove
+              Mark complete
             </button>
-            <button>Mark complete</button>
           </div>
         ))}
       </div>
