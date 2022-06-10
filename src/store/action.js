@@ -5,6 +5,7 @@ import {
     ADD_TODO,
     COMPLETE_TODO,
     DELETE_TODO,
+    UPDATE_TODO,
     GET_TODOS_SUCCESS,
     GET_TODOS_ERROR,
     GET_TODOS_LOADING
@@ -34,6 +35,35 @@ export const addTodo = (dispatch, payload) => {
         });
 }
 
-export const deleteTodo = (id) => ({ type: DELETE_TODO, id });
+// export const deleteTodo = (id) => ({ type: DELETE_TODO, id });
 
-export const completeTodo = (id) => ({ type: COMPLETE_TODO, id });
+export const deleteTodo = (dispatch, id) => {
+    console.log(id);
+    axios.delete(`http://localhost:8080/todos/${id}`)
+        .then(res => {
+            dispatch({ type: DELETE_TODO, id });
+        });
+    console.log(id);
+}
+
+// export const completeTodo = (id) => ({ type: COMPLETE_TODO, id });
+
+export const completeTodo = (dispatch, todo) => {
+    console.log(todo);
+    let id = todo.id;
+    let updatedTodo = { ...todo, isCompleted: true }
+    axios.patch(`http://localhost:8080/todos/${id}`, updatedTodo)
+        .then(res => {
+            dispatch({ type: COMPLETE_TODO, id });
+        })
+}
+
+export const updateTodo = (dispatch, todo, value) => {
+    console.log(todo, value, "from action.js");
+    let id = todo.id;
+    let updatedTodo = { ...todo, value: value, isCompleted: false }
+    axios.patch(`http://localhost:8080/todos/${id}`, updatedTodo)
+        .then(res => {
+            dispatch({ type: UPDATE_TODO, payload: { id: id, value: value } });
+        })
+}

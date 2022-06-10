@@ -1,9 +1,14 @@
-import { addTodo, deleteTodo, completeTodo, getTodos } from "../store/action";
+import {
+  addTodo,
+  deleteTodo,
+  completeTodo,
+  getTodos,
+  updateTodo,
+} from "../store/action";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import style from "./TodoApp.module.css";
-import axios from "axios";
 
 const TodoApp = () => {
   const ref = useRef();
@@ -32,12 +37,20 @@ const TodoApp = () => {
   };
 
   const removeIt = (id) => {
-    dispatch(deleteTodo(id));
+    // dispatch(deleteTodo(id));
+    deleteTodo(dispatch, id);
   };
 
-  const completeIt = (id) => {
-    dispatch(completeTodo(id));
+  const completeIt = (todo) => {
+    // dispatch(completeTodo(id));
+    completeTodo(dispatch, todo);
   };
+
+  const updateIt = (todo) => {
+    let value = ref.current.value;
+    updateTodo(dispatch, todo, value);
+  };
+
   if (loading) {
     return <div>Loading....</div>;
   }
@@ -50,13 +63,37 @@ const TodoApp = () => {
       <div>
         <input placeholder="type todo here..." ref={ref} />
         <button onClick={addNew}>ADD</button>
-        {todos.map((todo, i) => (
-          <div key={todo.id} className={todo.isCompleted ? style.dashed : null}>
-            {todo.value}
-            <button onClick={() => removeIt(todo.id)}>remove</button>
-            <button onClick={() => completeIt(todo.id)}>Mark complete</button>
-          </div>
-        ))}
+        <div className={style.todoList}>
+          {todos.map((todo, i) => (
+            <div key={todo.id}>
+              <div className={style.listItem}>
+                <h2 className={todo.isCompleted ? style.dashed : null}>
+                  {todo.value}
+                </h2>
+                <div className={style.buttons}>
+                  <button
+                    className={style.clickBtn}
+                    onClick={() => removeIt(todo.id)}
+                  >
+                    remove
+                  </button>
+                  <button
+                    className={style.clickBtn}
+                    onClick={() => completeIt(todo)}
+                  >
+                    Mark complete
+                  </button>
+                  <button
+                    className={style.clickBtn}
+                    onClick={() => updateIt(todo)}
+                  >
+                    update
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

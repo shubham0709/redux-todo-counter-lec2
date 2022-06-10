@@ -1,3 +1,35 @@
 .dashed {
   text-decoration: line-through;
 }
+.normal {
+  text-decoration: none;
+}
+.todoList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  margin: auto;
+  margin-top: 40px;
+  gap: 30px;
+}
+.listItem {
+  margin: auto;
+  gap: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.clickBtn {
+  padding: 5px 10px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  width: 10rem;
+}

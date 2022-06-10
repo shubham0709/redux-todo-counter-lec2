@@ -1,34 +1,14 @@
 {
   "todos": [
     {
-      "value": "first",
-      "isCompleted": false,
-      "id": 1
-    },
-    {
-      "value": "second",
+      "value": "kjndskjdnvkjs",
       "isCompleted": false,
       "id": 2
     },
     {
-      "value": "third",
+      "value": "updated akshay",
       "isCompleted": false,
       "id": 3
-    },
-    {
-      "value": "fourth",
-      "isCompleted": false,
-      "id": 4
-    },
-    {
-      "value": "fifth",
-      "isCompleted": false,
-      "id": 5
-    },
-    {
-      "value": "sixth",
-      "isCompleted": false,
-      "id": 6
     }
   ]
 }
